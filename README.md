@@ -3,7 +3,9 @@
 Part of the **Map → Plan → Drive** project for *Special Aspects of Mobile Autonomous Systems* (TH Köln, WS 26/27).
 This package is **Person 1's part**: a working simulation in which a TurtleBot3 explores an unknown building on its own and builds a map. It is the **baseline and test platform** for the team. Our own mapping, A* planner and fuzzy controller will be developed against it and swapped in later.
 
-**Author:** Achraf Aroua
+**Author:** Achraf Aroua · **Stack:** Ubuntu 22.04 on WSL2 · ROS 2 Humble · Gazebo Classic · TurtleBot3 Burger
+
+> This is the first version of my part, on ROS 2 Humble. The team has since moved to ROS 2 Jazzy and Gazebo Harmonic; that version lives in [ams-map-plan-drive-tb3_world_jazzy](https://github.com/achref-2/ams-map-plan-drive-tb3_world_jazzy).
 
 ---
 
@@ -25,15 +27,15 @@ Gazebo (TurtleBot3) ──/scan,/odom──▶ slam_toolbox ──/map──▶ 
 
 **The simulation world:** TurtleBot3 house in Gazebo. The blue fan is the robot's 360° laser scanner.
 
-![Gazebo house world](docs/03_gazebo_house.png)
-
-**First launch:** all RViz displays load with *Global Status: Ok*, and the first part of the map appears around the robot.
-
-![First launch in RViz](docs/01_first_launch.png)
+![Gazebo house world](docs/01_gazebo_house.png)
 
 **Map built autonomously:** after about 28 minutes of simulated time the robot had mapped most of the house on its own. White/grey cells are free, black cells are walls, and the green spheres are the remaining frontiers (edges between known and unknown space).
 
-![House map built autonomously](docs/02_house_map.png)
+![House map built autonomously](docs/02_house_map_rviz.png)
+
+**The saved map** (`maps/tb3_house_v1.pgm`, 5 cm per cell): light cells are free space, black cells are walls, grey is unexplored.
+
+![Saved occupancy grid map of the house](docs/03_saved_map.png)
 
 ## Problems I ran into and how I solved them
 
@@ -86,3 +88,8 @@ mpd_bringup/
 - Own occupancy-grid mapping node, compared against slam_toolbox
 - Evaluation tools: exploration time, map coverage, number of collisions
 - Recorded rosbags (`/scan`, `/odom`, `/tf`, `/map`) so teammates can test offline
+
+## Related
+
+- [ams-map-plan-drive-tb3_world_jazzy](https://github.com/achref-2/ams-map-plan-drive-tb3_world_jazzy): the same stack on ROS 2 Jazzy and Gazebo Harmonic
+- [My portfolio](https://achref-2.github.io): the robot at the top of the page runs frontier exploration and A* in the browser
